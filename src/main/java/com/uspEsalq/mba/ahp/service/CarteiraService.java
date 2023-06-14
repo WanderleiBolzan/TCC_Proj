@@ -25,5 +25,26 @@ public class CarteiraService {
 		return obj.get();
 	}
 	
+	public Carteira insert(Carteira obj) {
+		return repository.save(obj);
+	}
+	
+	public void delete(Long id) {
+		repository.deleteById(id);
+	}
+	
+	public Carteira update(Long id, Carteira obj) {
+		Carteira entity = repository.getReferenceById(id);
+		updateData(entity, obj);
+		return repository.save(entity);		
+	}
+	
+	private void updateData(Carteira entity, Carteira obj) {
+		entity.setClient(obj.getClient());
+		entity.setDataCompra(obj.getDataCompra());
+		entity.setDataVenda(obj.getDataVenda());
+		entity.setPerfil(obj.getPerfil());
+	}
+	
 
 }

@@ -1,6 +1,7 @@
 package com.uspEsalq.mba.ahp.entities;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -14,9 +15,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-
 
 @Entity
 @Table(name = "Tb_Ativos")
@@ -26,52 +25,69 @@ public class Ativos implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String Ativo;
+	private String ativo;
 	private Long id_Segmento; 
 	private Long id_Empresa;
-	private Double preco;
+	private LocalDate data;
+	private Double abertura;
+	private Double maxima;
+	private Double minima;
+	private Double fechamento;
+	private Double volume;
+	private Double preco_ajustado;
+	private Double maxima_Anterior;
+	private Double minima_Anterior;
+	private Double compra;
+	private Double venda;
+	private Double resultados;
 
 	@ManyToMany
 	@JoinTable(name = "ativos_empresas", joinColumns = @JoinColumn(name = "ativo_id"),inverseJoinColumns = @JoinColumn(name = "empresa_id"))
 	private Set<Empresas> empresas = new HashSet<>();
 	
-	@OneToMany(mappedBy = "id.ativos")
-	private Set<CarteiraItem> items = new HashSet<>();
+//	@OneToMany(mappedBy = "id.ativos")
+//	private Set<CarteiraItem> items = new HashSet<>();
 	
 	public Ativos() {	
 	}
 
-	public Ativos(Long id, String ativo, Long id_Segmento, Long id_Empresa, Double preco) {
+	public Ativos(Long id, String ativo, Long id_Segmento, Long id_Empresa, LocalDate data,
+				  Double abertura,Double maxima,Double minima,Double fechamento,Double volume,Double preco_ajustado,
+				  Double maxima_Anterior,	Double minima_Anterior,	Double compra,Double venda,Double resultados) {
 		super();
 		this.id = id;
-		Ativo = ativo;
+		this.ativo = ativo;
 		this.id_Segmento = id_Segmento;
 		this.id_Empresa = id_Empresa;
-		this.preco = preco;
+		this.data = data;
+		this.abertura = abertura;
+		this.maxima = maxima;
+		this.minima = minima;
+		this.fechamento = fechamento;
+		this.volume = volume;
+		this.preco_ajustado = preco_ajustado;
+		this.maxima_Anterior = maxima_Anterior;
+		this.minima_Anterior = minima_Anterior;
+		this.compra = compra;
+		this.venda = venda;
+		this.resultados = resultados;		
 	}
 	
 	public Long getId() {
 		return id;
 	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Set<CarteiraItem> getItems() {
-		return items;
-	}
-
-	public void setItems(Set<CarteiraItem> items) {
-		this.items = items;
-	}
-
+	
 	public String getAtivo() {
-		return Ativo;
+		return ativo;
 	}
 
 	public void setAtivo(String ativo) {
-		Ativo = ativo;
+		this.ativo = ativo;
+	}
+	
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Long getId_Segmento() {
@@ -80,14 +96,6 @@ public class Ativos implements Serializable{
 
 	public void setId_Segmento(Long id_Segmento) {
 		this.id_Segmento = id_Segmento;
-	}
-
-	public Double getPreco() {
-		return preco;
-	}
-
-	public void setPreco(Double preco) {
-		this.preco = preco;
 	}
 
 	public static long getSerialversionuid() {
@@ -109,24 +117,116 @@ public class Ativos implements Serializable{
 	public Set<Empresas> getEmpresas() {
 		return empresas;
 	}
+	
+	public LocalDate getdata() {
+		return data;
+	}
+
+	public void setData(LocalDate data) {
+		data = data;
+	}
+
+	public Double getAbertura() {
+		return abertura;
+	}
+
+	public void setAbertura(Double abertura) {
+		this.abertura = abertura;
+	}
+
+	public Double getMaxima() {
+		return maxima;
+	}
+
+	public void setMaxima(Double maxima) {
+		this.maxima = maxima;
+	}
+
+	public Double getMinima() {
+		return minima;
+	}
+
+	public void setMinima(Double minima) {
+		this.minima = minima;
+	}
+
+	public Double getFechamento() {
+		return fechamento;
+	}
+
+	public void setFechamento(Double fechamento) {
+		this.fechamento = fechamento;
+	}
+
+	public Double getVolume() {
+		return volume;
+	}
+
+	public void setVolume(Double volume) {
+		this.volume = volume;
+	}
+
+	public Double getPreco_ajustado() {
+		return preco_ajustado;
+	}
+
+	public void setPreco_ajustado(Double preco_ajustado) {
+		this.preco_ajustado = preco_ajustado;
+	}
+
+	public Double getMaxima_Anterior() {
+		return maxima_Anterior;
+	}
+
+	public void setMaxima_Anterior(Double maxima_Anterior) {
+		this.maxima_Anterior = maxima_Anterior;
+	}
+
+	public Double getMinima_Anterior() {
+		return minima_Anterior;
+	}
+
+	public void setMinima_Anterior(Double minima_Anterior) {
+		this.minima_Anterior = minima_Anterior;
+	}
+
+	public Double getCompra() {
+		return compra;
+	}
+
+	public void setCompra(Double compra) {
+		this.compra = compra;
+	}
+
+	public Double getVenda() {
+		return venda;
+	}
+
+	public void setVenda(Double venda) {
+		this.venda = venda;
+	}
+
+	public Double getResultados() {
+		return resultados;
+	}
+
+	public void setResultados(Double resultados) {
+		this.resultados = resultados;
+	}
+	
 
 	@JsonIgnore
 	public Set<Carteira> getCarteiras() {
 		Set<Carteira> set = new HashSet<>();
-		for (CarteiraItem x : items) {
-			set.add(x.getCarteira());
-		}
 		return set;
 	}
 	
+
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}	
-	
+		return Objects.hash(id);
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -136,9 +236,6 @@ public class Ativos implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Ativos other = (Ativos) obj;
-		return Objects.equals(Ativo, other.Ativo) && Objects.equals(empresas, other.empresas)
-				&& Objects.equals(id, other.id) && Objects.equals(id_Empresa, other.id_Empresa)
-				&& Objects.equals(id_Segmento, other.id_Segmento) && Objects.equals(preco, other.preco);
+		return Objects.equals(id, other.id);
 	}
-
 }

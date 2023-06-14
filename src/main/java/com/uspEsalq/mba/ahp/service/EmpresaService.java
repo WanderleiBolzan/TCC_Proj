@@ -24,4 +24,26 @@ public class EmpresaService {
 		Optional<Empresas> obj = repository.findById(id);
 		return obj.get();
 	}
+		
+	public Empresas insert(Empresas obj) {
+		return repository.save(obj);
+	}
+	
+	public void delete(Long id) {
+		repository.deleteById(id);
+	}
+	
+	public Empresas update(Long id, Empresas obj) {
+		Empresas entity = repository.getReferenceById(id);
+		updateData(entity, obj);
+		return repository.save(entity);		
+	}
+	
+	private void updateData(Empresas entity, Empresas obj) {
+		entity.setId(obj.getId());
+		entity.setId_Segmento(obj.getId_Segmento());
+		entity.setRazao_Social(obj.getRazao_Social());
+		entity.setAcao(obj.getAcao());
+	}
+	
 }

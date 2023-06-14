@@ -25,4 +25,23 @@ public class SegmentosService {
 		return obj.get();
 	}
 
+	public Segmentos insert(Segmentos obj) {
+		return repository.save(obj);
+	}
+	
+	public void delete(Long id) {
+		repository.deleteById(id);
+	}
+	
+	public Segmentos update(Long id, Segmentos obj) {
+		Segmentos entity = repository.getReferenceById(id);
+		updateData(entity, obj);
+		return repository.save(entity);		
+	}
+	
+	private void updateData(Segmentos entity, Segmentos obj) {
+//		entity.set(obj.getId_Segmento());
+//		entity.setRazao_Social(obj.getRazao_Social());
+	}
+	
 }

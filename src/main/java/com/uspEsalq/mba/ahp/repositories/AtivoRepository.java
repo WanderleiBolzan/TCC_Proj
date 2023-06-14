@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.uspEsalq.mba.ahp.entities.Ativos;
 
-public interface AtivosRepository extends JpaRepository<Ativos, Long>{
-
+public interface AtivoRepository extends JpaRepository<Ativos, Long> {
+	Ativos getReferenceById(Long id);	
 }

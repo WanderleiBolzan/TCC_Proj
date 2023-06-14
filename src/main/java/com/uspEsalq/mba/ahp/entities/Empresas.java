@@ -24,7 +24,8 @@ public class Empresas implements Serializable  {
 	private Long id;
 	private Long id_Segmento;
 	private String razao_Social;
-	
+	private String acao;
+		
 	@JsonIgnore
 	@ManyToMany(mappedBy = "empresas")
 	private Set<Ativos> ativos = new HashSet<>();
@@ -32,11 +33,12 @@ public class Empresas implements Serializable  {
 	public Empresas() {
 	}
 
-	public Empresas(Long id, Long id_Segmento, String razao_Social) {
+	public Empresas (Long id, Long id_segmento, String razao_social,String acao) {
 		super();
 		this.id = id;
-		this.id_Segmento = id_Segmento;
-		this.razao_Social = razao_Social;
+		this.id_Segmento = id_segmento;
+		this.razao_Social = razao_social;
+		this.acao = acao;
 	}
 
 	public Long getId() {
@@ -51,22 +53,31 @@ public class Empresas implements Serializable  {
 		return id_Segmento;
 	}
 
-	public void setId_Segmento(Long id_Segmento) {
-		this.id_Segmento = id_Segmento;
+	public void setId_Segmento(Long id_segmento) {
+		this.id_Segmento = id_segmento;
 	}
 
 	public String getRazao_Social() {
 		return razao_Social;
 	}
 
-	public void setRazao_Social(String razao_Social) {
-		this.razao_Social = razao_Social;
+	public void setRazao_Social(String razao_social) {
+		this.razao_Social = razao_social;
 	}
 
 	public Set<Ativos> getAtivos() {
 		return ativos;
 	}
 	
+	
+	public String getAcao() {
+		return acao;
+	}
+
+	public void setAcao(String acao) {
+		this.acao = acao;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -86,7 +97,5 @@ public class Empresas implements Serializable  {
 		Empresas other = (Empresas) obj;
 		return Objects.equals(id, other.id);
 	}
-
-	
 	
 }
