@@ -27,8 +27,8 @@ public class Empresas implements Serializable  {
 	private String acao;
 		
 	@JsonIgnore
-	@ManyToMany(mappedBy = "empresas")
-	private Set<Ativos> ativos = new HashSet<>();
+//	@ManyToMany(mappedBy = "empresas")
+//	private Set<Ativos> ativos = new HashSet<>();
 	//
 	public Empresas() {
 	}
@@ -65,9 +65,9 @@ public class Empresas implements Serializable  {
 		this.razao_Social = razao_social;
 	}
 
-	public Set<Ativos> getAtivos() {
-		return ativos;
-	}
+//	public Set<Ativos> getAtivos() {
+//		return ativos;
+//	}
 	
 	
 	public String getAcao() {

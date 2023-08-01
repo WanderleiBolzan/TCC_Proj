@@ -41,9 +41,9 @@ public class Ativos implements Serializable{
 	private Double venda;
 	private Double resultados;
 
-	@ManyToMany
-	@JoinTable(name = "ativos_empresas", joinColumns = @JoinColumn(name = "ativo_id"),inverseJoinColumns = @JoinColumn(name = "empresa_id"))
-	private Set<Empresas> empresas = new HashSet<>();
+//	@ManyToMany
+//	@JoinTable(name = "ativos_empresas", joinColumns = @JoinColumn(name = "ativo_id"),inverseJoinColumns = @JoinColumn(name = "empresa_id"))
+//	private Set<Empresas> empresas = new HashSet<>();
 	
 //	@OneToMany(mappedBy = "id.ativos")
 //	private Set<CarteiraItem> items = new HashSet<>();
@@ -106,17 +106,17 @@ public class Ativos implements Serializable{
 		return id_Empresa;
 	}
 
-	public void setEmpresas(Set<Empresas> empresas) {
-		this.empresas = empresas;
-	}
+//	public void setEmpresas(Set<Empresas> empresas) {
+//		this.empresas = empresas;
+//	}
 
 	public void setId_Empresa(Long id_Empresa) {
 		this.id_Empresa = id_Empresa;
 	}
 
-	public Set<Empresas> getEmpresas() {
-		return empresas;
-	}
+//	public Set<Empresas> getEmpresas() {
+//		/return empresas;
+//	}
 	
 	public LocalDate getdata() {
 		return data;

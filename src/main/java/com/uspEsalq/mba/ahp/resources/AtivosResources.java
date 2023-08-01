@@ -23,7 +23,7 @@ import com.uspEsalq.mba.ahp.service.AtivoService;
 
 
 @RestController
-@CrossOrigin(origins="*")
+//@CrossOrigin(origins="*")
 @RequestMapping(value="/ativos")
 public class AtivosResources {
 
