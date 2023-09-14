@@ -40,10 +40,14 @@ public class CarteiraService {
 	}
 	
 	private void updateData(Carteira entity, Carteira obj) {
-		entity.setClient(obj.getClient());
-		entity.setDataCompra(obj.getDataCompra());
-		entity.setDataVenda(obj.getDataVenda());
-		entity.setPerfil(obj.getPerfil());
+		entity.setLiquidez(obj.getLiquidez());
+		entity.setNome_ativo(obj.getNome_ativo());
+		entity.setQtd_acoes(obj.getQtd_acoes());
+		entity.setRentabilidade(obj.getRentabilidade());
+		entity.setRisco(obj.getRisco());
+		entity.setTotal_investido(obj.getTotal_investido());
+		entity.setValor_cotacao(obj.getValor_cotacao());
+		entity.setVolatilidade(obj.getVolatilidade());
 	}
 	
 

@@ -1,18 +1,12 @@
 package com.uspEsalq.mba.ahp.entities;
 
 import java.io.Serializable;
-import java.time.Instant;
 import java.util.Objects;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.uspEsalq.mba.ahp.entities.enums.CarteiraStatus;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -20,100 +14,45 @@ import jakarta.persistence.Table;
 public class Carteira implements Serializable  {
 
 	private static final long serialVersionUID = 1L;
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;	
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
-	private Instant dataCompra;
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")	
-	private Instant dataVenda;
-	private Integer perfil;
-		
-	@ManyToOne
-	@JoinColumn(name = "client_id")
-	private User client;
-
-	@ManyToOne
-	@JoinColumn(name = "ativo_id")	
-	private Ahp ativoCarteira;
-		
-//	@OneToMany(mappedBy = "id.carteira")
-//	private Set<CarteiraItem> items = new HashSet<>();
+	private long id;
+	private String  nome_ativo;
+	private Double  valor_cotacao;
+	private Integer qtd_acoes;
+	private Double  preco_venda;
+	private Double  total_investido;
+	private Double  rentabilidade;
+	private Double  risco;
+	private Double  liquidez;
+	private Double  volatilidade;
 	
 
 	public Carteira() {
 	}
 
-	public Carteira(Long id, Instant dataCompra, Instant dataVenda, CarteiraStatus perfil,  User client, Ahp ativoCarteira) {
+
+	public Carteira(long id, String nome_ativo, Double valor_cotacao, Integer qtd_acoes, Double preco_venda, Double total_investido,
+			Double rentabilidade, Double risco, Double liquidez, Double volatilidade) {
 		super();
 		this.id = id;
-		this.dataCompra = dataCompra;
-		this.dataVenda = dataVenda;
-		setPerfil(perfil);
-		this.client = client;
-		this.ativoCarteira = ativoCarteira; 		
+		this.nome_ativo = nome_ativo;
+		this.valor_cotacao = valor_cotacao;
+		this.qtd_acoes = qtd_acoes;
+		this.preco_venda = preco_venda;
+		this.total_investido = total_investido;
+		this.rentabilidade = rentabilidade;
+		this.risco = risco;
+		this.liquidez = liquidez;
+		this.volatilidade = volatilidade;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Instant getDataCompra() {
-		return dataCompra;
-	}
-
-	public void setDataCompra(Instant dataCompra) {
-		this.dataCompra = dataCompra;
-	}
-
-	public Instant getDataVenda() {
-		return dataVenda;
-	}
-
-	public void setDataVenda(Instant dataVenda) {
-		this.dataVenda = dataVenda;
-	}
-
-		
-	public void setPerfil(CarteiraStatus perfil) {
-		if (perfil != null) {
-			this.perfil = perfil.getCode();			
-		}
-	}
-
-	public User getClient() {
-		return client;
-	}
-	
-	public void setClient(User client) {
-		this.client = client;
-	}
-
-	public Ahp getAtivoCarteira() {
-		return ativoCarteira;
-	}
-
-	public void setAtivoCarteira(Ahp ativoCarteira) {
-		this.ativoCarteira = ativoCarteira;
-	}
-	
-	
-	public CarteiraStatus getPerfil() {
-		return CarteiraStatus.valueOf(perfil);
-	}
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
+		return Objects.hash(id);
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -124,7 +63,113 @@ public class Carteira implements Serializable  {
 		if (getClass() != obj.getClass())
 			return false;
 		Carteira other = (Carteira) obj;
-		return Objects.equals(id, other.id);
+		return id == other.id;
 	}
+
+
+	public long getId() {
+		return id;
+	}
+
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+
+	public String getNome_ativo() {
+		return nome_ativo;
+	}
+
+
+	public void setNome_ativo(String nome_ativo) {
+		this.nome_ativo = nome_ativo;
+	}
+
+
+	public Double getValor_cotacao() {
+		return valor_cotacao;
+	}
+
+
+	public void setValor_cotacao(Double valor_cotacao) {
+		this.valor_cotacao = valor_cotacao;
+	}
+
+
+	public Integer getQtd_acoes() {
+		return qtd_acoes;
+	}
+
+
+	public void setQtd_acoes(Integer qtd_acoes) {
+		this.qtd_acoes = qtd_acoes;
+	}
+
+
+	public Double getPreco_venda() {
+		return preco_venda;
+	}
+
+
+	public void setPreco_venda(Double preco_venda) {
+		this.preco_venda = preco_venda;
+	}
+
+
+	public Double getTotal_investido() {
+		return total_investido;
+	}
+
+
+	public void setTotal_investido(Double total_investido) {
+		this.total_investido = total_investido;
+	}
+
+
+	public Double getRentabilidade() {
+		return rentabilidade;
+	}
+
+
+	public void setRentabilidade(Double rentabilidade) {
+		this.rentabilidade = rentabilidade;
+	}
+
+
+	public Double getRisco() {
+		return risco;
+	}
+
+
+	public void setRisco(Double risco) {
+		this.risco = risco;
+	}
+
+
+	public Double getLiquidez() {
+		return liquidez;
+	}
+
+
+	public void setLiquidez(Double liquidez) {
+		this.liquidez = liquidez;
+	}
+
+
+	public Double getVolatilidade() {
+		return volatilidade;
+	}
+
+
+	public void setVolatilidade(Double volatilidade) {
+		this.volatilidade = volatilidade;
+	}
+
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 
 }

@@ -29,9 +29,6 @@ public class User implements Serializable{
 	private String senha;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "client")
-	private List<Carteira> carteiras = new ArrayList<>();
-	
 	public User() {
 	}
 
@@ -95,10 +92,7 @@ public class User implements Serializable{
 		this.senha = senha;
 	}
 	
-	public List<Carteira> getCarteiras() {
-		return carteiras;
-	}
-	
+
 
 	@Override
 	public int hashCode() {
@@ -123,10 +117,6 @@ public class User implements Serializable{
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}
-
-	
-	
-	
+	}	
 }
 

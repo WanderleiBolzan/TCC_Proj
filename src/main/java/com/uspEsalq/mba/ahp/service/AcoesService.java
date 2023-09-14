@@ -24,7 +24,7 @@ public class AcoesService {
 		return obj.get();
 	}
 	
-	public Acoes insert(Acoes obj) {
+	public Acoes insert(Acoes obj) {	
 		return repository.save(obj);
 	}
 	

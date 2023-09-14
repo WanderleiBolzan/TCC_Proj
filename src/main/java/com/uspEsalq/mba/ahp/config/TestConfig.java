@@ -25,6 +25,7 @@ import com.uspEsalq.mba.ahp.entities.Ahp;
 import com.uspEsalq.mba.ahp.repositories.AcoesRepository;
 import com.uspEsalq.mba.ahp.repositories.AhpRepository;
 import com.uspEsalq.mba.ahp.repositories.AtivoRepository;
+import com.uspEsalq.mba.ahp.repositories.CarteirasRepository;
 
 @Configuration
 @Profile("dev")
@@ -39,6 +40,9 @@ public class TestConfig implements CommandLineRunner {
 	
 	@Autowired
 	AhpRepository ahpRepository;
+	
+	@Autowired
+	CarteirasRepository carteiraRepository ;
 		
 	private String Path = "C:\\Wanderlei\\estudos\\UspEsalq\\Acadêmico\\Data Sciency\\17-AHP\\Elaboração do Projeto do TCC\\TCC\\Projeto R\\bovespa.csv";	
 	private static List<Ativos> list = new ArrayList<Ativos>();
@@ -53,12 +57,18 @@ public class TestConfig implements CommandLineRunner {
 	private ArrayList<Ahp> aHp = new ArrayList<Ahp>();
 	
 	
+	private String Path_carteira = "C:\\Wanderlei\\estudos\\UspEsalq\\Acadêmico\\Data Sciency\\17-AHP\\Elaboração do Projeto do TCC\\TCC\\Projeto R\\carteira.csv";	
+	private static List<Carteira> cart = new ArrayList<Carteira>();
+	
+	
+	
 	public TestConfig() {	
 	}
 	public void run(String... args) throws Exception {
 	
 		importar();  // Importa Serie de cotaçãoes de ativos
-		importar_Ahp(); // Importa a base para gerar a matriz Ahp
+		importar_carteira(); // Importar carteiras de investimentos
+//		importar_Ahp(); // Importa a base para gerar a matriz Ahp
 //		relacao_Acoes() ; //Importa as ações pesquisadas
 
 	}
@@ -120,6 +130,55 @@ public class TestConfig implements CommandLineRunner {
 		catch (IOException e) {
 			System.out.println("Error: " + e.getMessage());
 		}
+	}
+	
+	private void importar_carteira() {
+		
+		try (BufferedReader br = new BufferedReader(new FileReader(Path_carteira))) {
+			
+			String line = br.readLine();
+			line = br.readLine();
+			Long id = 0L;
+			
+			while (line != null) {
+
+				System.out.println(line);				
+				
+				String[] coluna = line.split(",");
+				String ticket = coluna[1].substring(1,coluna[1].length()-1);
+				String ticket2 = ticket.substring(0,ticket.length());
+				ticket = ticket2.trim();
+				Double  valor = Double.parseDouble(coluna[2]);
+				Integer qtd_acoes = Integer.parseInt(coluna[3]);
+				Double  valor_Venda = Double.parseDouble(coluna[4]);
+				Double  total_inv = Double.parseDouble(coluna[5]);
+				Double  rentabilidade = Double.parseDouble(coluna[6]);
+				Double  risco = Double.parseDouble(coluna[7]);
+				Double  volatilidade = Double.parseDouble(coluna[8]);
+				Double  liquidez = Double.parseDouble(coluna[9]);
+				
+				Carteira carteira = new Carteira(id, ticket, valor, qtd_acoes, valor_Venda, total_inv,rentabilidade,risco,volatilidade,liquidez);
+				
+				cart.add(carteira);
+				
+				line = br.readLine();
+			}	
+			
+			for (Carteira c : cart) {
+				carteiraRepository.saveAll(Arrays.asList(c));
+			}
+
+		    Path path = Paths.get(Path_carteira);  
+            // delete File
+		    br.close();
+		    if (Files.exists(path)) {
+		    	Files.delete(path);
+		    }
+		}
+		catch (IOException e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+		
 	}
 	
 	private void relacao_Acoes() {
