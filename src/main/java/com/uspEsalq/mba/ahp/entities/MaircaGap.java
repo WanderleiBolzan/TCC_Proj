@@ -1,4 +1,4 @@
-package mairca.entities;
+package com.uspEsalq.mba.ahp.entities;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -10,26 +10,29 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_marica_Peso")
-public class MaircaPeso implements Serializable {
-		
+@Table(name = "tb_marica_Gap")
+public class MaircaGap implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)	
 	private Long id;
+	private String acoes;
 	private Double valor;
 	private Double rentabilidade;
 	private Double risco;
 	private Double volatilidade;
 	private Double liquidez;
-
-	public MaircaPeso() {
-		
+	
+	public MaircaGap() {	
 	}
 
-	public MaircaPeso(Long id, Double valor, Double rentabilidade, Double risco, Double volatilidade, Double liquidez) {
+	public MaircaGap(Long id, String acoes, Double valor, Double rentabilidade, Double risco,
+			Double volatilidade, Double liquidez) {
+		
 		super();
 		this.id = id;
+		this.acoes = acoes;
 		this.valor = valor;
 		this.rentabilidade = rentabilidade;
 		this.risco = risco;
@@ -43,29 +46,28 @@ public class MaircaPeso implements Serializable {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		MaircaPeso other = (MaircaPeso) obj;
-		return Objects.equals(id, other.id);
-	}
-
-	@Override
 	public String toString() {
-		return "MaircaPeso [id=" + id + ", valor=" + valor + ", rentabilidade=" + rentabilidade + ", risco=" + risco
-				+ ", volatilidade=" + volatilidade + ", liquidez=" + liquidez + "]";
+		return "MaricaDecisaoReal [id=" + id + ", acoes=" + acoes + ", valor=" + valor + ", rentabilidade="
+				+ rentabilidade + ", risco=" + risco + ", volatilidade=" + volatilidade + ", liquidez=" + liquidez
+				+ "]";
 	}
 
+	
+	
 	public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getAcoes() {
+		return acoes;
+	}
+
+	public void setAcoes(String acoes) {
+		this.acoes = acoes;
 	}
 
 	public Double getValor() {
@@ -112,5 +114,4 @@ public class MaircaPeso implements Serializable {
 		return serialVersionUID;
 	}
 
-	
 }

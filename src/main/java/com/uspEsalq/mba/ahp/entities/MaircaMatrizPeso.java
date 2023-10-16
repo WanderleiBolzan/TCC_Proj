@@ -1,4 +1,4 @@
-package mairca.entities;
+package com.uspEsalq.mba.ahp.entities;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -10,28 +10,26 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_marica_DecisaoTeorica")
-
-public class MaricaDecisaoTeorica implements Serializable  {
+@Table(name = "tb_marica_Peso")
+public class MaircaMatrizPeso implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)	
 	private Long id;
 	private Double valor;
 	private Double rentabilidade;
 	private Double risco;
 	private Double volatilidade;
 	private Double liquidez;
+	private Double pai;
 	
-	public MaricaDecisaoTeorica() {
+	public MaircaMatrizPeso() {
 		
 	}
 
-	public MaricaDecisaoTeorica(Long id, Double valor, Double rentabilidade, Double risco, Double volatilidade,
-			Double liquidez) {
+	public MaircaMatrizPeso(Long id, Double valor, Double rentabilidade, Double risco, Double volatilidade,
+			Double liquidez, Double pai) {
 		super();
 		this.id = id;
 		this.valor = valor;
@@ -39,6 +37,7 @@ public class MaricaDecisaoTeorica implements Serializable  {
 		this.risco = risco;
 		this.volatilidade = volatilidade;
 		this.liquidez = liquidez;
+		this.pai = pai;
 	}
 
 	@Override
@@ -54,8 +53,14 @@ public class MaricaDecisaoTeorica implements Serializable  {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		MaricaDecisaoTeorica other = (MaricaDecisaoTeorica) obj;
+		MaircaMatrizPeso other = (MaircaMatrizPeso) obj;
 		return Objects.equals(id, other.id);
+	}
+
+	@Override
+	public String toString() {
+		return "MaircaMatrizPeso [id=" + id + ", valor=" + valor + ", rentabilidade=" + rentabilidade + ", risco="
+				+ risco + ", volatilidade=" + volatilidade + ", liquidez=" + liquidez + ", pai=" + pai + "]";
 	}
 
 	public Long getId() {
@@ -106,14 +111,16 @@ public class MaricaDecisaoTeorica implements Serializable  {
 		this.liquidez = liquidez;
 	}
 
-	@Override
-	public String toString() {
-		return "MaricaDecisaoTeorica [id=" + id + ", valor=" + valor + ", rentabilidade=" + rentabilidade + ", risco="
-				+ risco + ", volatilidade=" + volatilidade + ", liquidez=" + liquidez + "]";
+	public Double getPai() {
+		return pai;
+	}
+
+	public void setPai(Double pai) {
+		this.pai = pai;
 	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-		
+	
 }
