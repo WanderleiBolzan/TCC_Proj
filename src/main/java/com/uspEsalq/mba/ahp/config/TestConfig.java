@@ -11,6 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +22,13 @@ import org.springframework.context.annotation.Profile;
 import com.uspEsalq.mba.ahp.entities.Acoes;
 import com.uspEsalq.mba.ahp.entities.Ativos;
 import com.uspEsalq.mba.ahp.entities.Carteira;
+import com.uspEsalq.mba.ahp.entities.DashBoard;
 import com.uspEsalq.mba.ahp.entities.Ahp; 
 import com.uspEsalq.mba.ahp.repositories.AcoesRepository;
 import com.uspEsalq.mba.ahp.repositories.AhpRepository;
 import com.uspEsalq.mba.ahp.repositories.AtivoRepository;
 import com.uspEsalq.mba.ahp.repositories.CarteirasRepository;
+import com.uspEsalq.mba.ahp.repositories.DashBoardRepository;
 
 @Configuration
 @Profile("dev")
@@ -43,6 +46,9 @@ public class TestConfig implements CommandLineRunner {
 	
 	@Autowired
 	CarteirasRepository carteiraRepository ;
+	
+	@Autowired
+	DashBoardRepository dashBoardRepository;
 		
 	private String Path = "C:\\Wanderlei\\estudos\\UspEsalq\\Acadêmico\\Data Sciency\\17-AHP\\Elaboração do Projeto do TCC\\TCC\\Projeto R\\bovespa.csv";	
 	private static List<Ativos> list = new ArrayList<Ativos>();
@@ -61,6 +67,10 @@ public class TestConfig implements CommandLineRunner {
 	private static List<Carteira> cart = new ArrayList<Carteira>();
 	
 	
+	private String Path_dashboard = "C:\\Wanderlei\\estudos\\UspEsalq\\Acadêmico\\Data Sciency\\17-AHP\\Elaboração do Projeto do TCC\\TCC\\Projeto R\\dashboard.csv";	
+	private static List<DashBoard> dash = new ArrayList<DashBoard>();
+
+	
 	
 	public TestConfig() {	
 	}
@@ -68,10 +78,10 @@ public class TestConfig implements CommandLineRunner {
 	
 		importar();  // Importa Serie de cotaçãoes de ativos
 		importar_carteira(); // Importar carteiras de investimentos
-//		importar_Ahp(); // Importa a base para gerar a matriz Ahp
+//		importar_dashBoard(); // Importa Estatísticas atuais da Serie temporal em uso
 //		relacao_Acoes() ; //Importa as ações pesquisadas
 
-	}
+	} 
 	
 	private void importar() {
 		
@@ -134,6 +144,8 @@ public class TestConfig implements CommandLineRunner {
 	
 	private void importar_carteira() {
 		
+		// Importação da entidade carteira
+		
 		try (BufferedReader br = new BufferedReader(new FileReader(Path_carteira))) {
 			
 			String line = br.readLine();
@@ -180,6 +192,92 @@ public class TestConfig implements CommandLineRunner {
 		}
 		
 	}
+	
+	
+	private void importar_dashBoard() {
+		
+		// Importação da entidade carteira
+		
+		try (BufferedReader br = new BufferedReader(new FileReader(Path_dashboard))) {
+			
+			String line = br.readLine();
+			line = br.readLine();
+			Long id = 0L;
+			
+			while (line != null) {
+
+				System.out.println(line);				
+				
+				String[] coluna = line.split(",");
+				
+				String DataMenorCotacao = coluna[2];			
+				String DataMaiorCotacao = coluna[3];
+				String Ticket_Min  = coluna[4];
+				String Ticket_Max  = coluna[5];
+				Double price_openMin = Double.parseDouble(coluna[6]) ;
+				Double price_openMed = Double.parseDouble(coluna[7]) ; 
+				Double price_openMax = Double.parseDouble(coluna[8]) ;
+				Double price_highMin = Double.parseDouble(coluna[9]) ;
+				Double price_highMed = Double.parseDouble(coluna[10]) ;
+				Double price_highMax = Double.parseDouble(coluna[11]) ;
+				Double price_lowMin  = Double.parseDouble(coluna[12]) ;
+				Double price_lowMed  = Double.parseDouble(coluna[13]) ;
+				Double price_lowMax  = Double.parseDouble(coluna[14]) ;
+				Double price_closeMin = Double.parseDouble(coluna[15]) ;
+				Double price_closeMed = Double.parseDouble(coluna[16]) ;
+				Double price_closeMax = Double.parseDouble(coluna[17]) ;
+				Double price_VolumeMin = Double.parseDouble(coluna[18]) ;
+				Double price_VolumeMed = Double.parseDouble(coluna[19]) ;
+				Double price_VolumeMax = Double.parseDouble(coluna[20]) ;
+				Double price_adjustedMin = Double.parseDouble(coluna[21]) ;
+				Double price_adjustedMed = Double.parseDouble(coluna[22]) ;
+				
+				DashBoard dashBoard = new DashBoard(
+						id,
+						DataMenorCotacao, 
+						DataMaiorCotacao, 
+						Ticket_Min, 
+						Ticket_Max, 
+						price_openMin,
+						price_openMed,
+						price_openMax,
+						price_highMin,
+						price_highMed,
+						price_highMax,
+						price_lowMin,
+						price_lowMed,
+						price_lowMax,
+						price_closeMin,
+						price_closeMed,
+						price_closeMax,
+						price_VolumeMin,
+						price_VolumeMed,
+						price_VolumeMax,
+						price_adjustedMin,
+						price_adjustedMed,0.00);
+				
+				dash.add(dashBoard);
+				
+				line = br.readLine();
+			}	
+			
+			for (Carteira c : cart) {
+				carteiraRepository.saveAll(Arrays.asList(c));
+			}
+
+		    Path path = Paths.get(Path_carteira);  
+            // delete File
+		    br.close();
+		    if (Files.exists(path)) {
+		    	Files.delete(path);
+		    }
+		}
+		catch (IOException e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+		
+	}
+	
 	
 	private void relacao_Acoes() {
 
