@@ -4,16 +4,18 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.uspEsalq.mba.ahp.entities.MaricaDecisaoReal;
 import com.uspEsalq.mba.ahp.repositories.MaircaDecisaoRealRepository;
 
-
+@Service
 public class MaircaDecisaoRealService {
 
 	
 	@Autowired
 	private MaircaDecisaoRealRepository repository;
+
 	
 	public List<MaricaDecisaoReal> findAll() {
 		return repository.findAll();

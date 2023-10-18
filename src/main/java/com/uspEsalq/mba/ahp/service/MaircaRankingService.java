@@ -4,11 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.uspEsalq.mba.ahp.entities.MaircaRanking;
 import com.uspEsalq.mba.ahp.repositories.MaircaRankingRepository;
 
-
+@Service
 public class MaircaRankingService {
 
 	@Autowired

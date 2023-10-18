@@ -4,11 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.uspEsalq.mba.ahp.entities.MaricaDecisaoTeorica;
 import com.uspEsalq.mba.ahp.repositories.MaircaDecisaoTeoricaRepository;
 
-
+@Service
 public class MaircaDecisaoTeoricaService {
 
 	@Autowired

@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.uspEsalq.mba.ahp.entities.MaircaGap;
 import com.uspEsalq.mba.ahp.repositories.MaircaGapRepository;
 
+@Service
 public class MaircaGapService {
 
 	@Autowired
